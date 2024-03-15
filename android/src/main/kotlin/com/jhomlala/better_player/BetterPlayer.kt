@@ -162,7 +162,7 @@ internal class BetterPlayer(
 
 //
         val httpDataSourceFactory: HttpDataSource.Factory = DefaultHttpDataSource.Factory()
-                .setUserAgent("user-agent")
+
                 .setConnectTimeoutMs(DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS)
                 .setReadTimeoutMs(DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS)
                 .setAllowCrossProtocolRedirects(true)
