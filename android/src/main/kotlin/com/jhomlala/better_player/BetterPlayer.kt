@@ -123,7 +123,13 @@ internal class BetterPlayer(
                 val context = SSLContext.getInstance("TLS")
                 context.init(null, tmf!!.trustManagers, null)
                 HttpsURLConnection.setDefaultSSLSocketFactory(context.socketFactory)
-
+            exoPlayer = ExoPlayer.Builder(context)
+                    .setMediaSourceFactory(
+                            DefaultMediaSourceFactory( context)
+                    )
+                    .setTrackSelector(trackSelector)
+                    .setLoadControl(loadControl)
+                    .build()
 //            val cf = CertificateFactory.getInstance("X.509")
 //            val isgCertificate = cf.generateCertificate(ByteArrayInputStream(isgCert.toByteArray(Charsets.UTF_8)))
 //
@@ -135,6 +141,13 @@ internal class BetterPlayer(
 //                    .build()
 //
 //            builder.sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager());
+        }
+        else{
+
+            exoPlayer = ExoPlayer.Builder(context)
+                    .setTrackSelector(trackSelector)
+                    .setLoadControl(loadControl)
+                    .build()
         }
 //        val okHttpClient = builder.build()
 //
@@ -153,13 +166,6 @@ internal class BetterPlayer(
 
 
 
-        exoPlayer = ExoPlayer.Builder(context)
-                .setMediaSourceFactory(
-                        DefaultMediaSourceFactory( context)
-                )
-            .setTrackSelector(trackSelector)
-            .setLoadControl(loadControl)
-            .build()
 
 
         workManager = WorkManager.getInstance(context)
