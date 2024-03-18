@@ -120,51 +120,26 @@ internal class BetterPlayer(
         if (androidNorEarlier) {
 
                 val tmf = getTrustManagerFactory()
-                val context = SSLContext.getInstance("TLS")
-                context.init(null, tmf!!.trustManagers, null)
-                HttpsURLConnection.setDefaultSSLSocketFactory(context.socketFactory)
+                val contextSSL = SSLContext.getInstance("TLS")
+            contextSSL.init(null, tmf!!.trustManagers, null)
+                HttpsURLConnection.setDefaultSSLSocketFactory(contextSSL.socketFactory)
             exoPlayer = ExoPlayer.Builder(context)
                     .setMediaSourceFactory(
-                            DefaultMediaSourceFactory( context)
+                            DefaultMediaSourceFactory(context)
                     )
                     .setTrackSelector(trackSelector)
                     .setLoadControl(loadControl)
                     .build()
-//            val cf = CertificateFactory.getInstance("X.509")
-//            val isgCertificate = cf.generateCertificate(ByteArrayInputStream(isgCert.toByteArray(Charsets.UTF_8)))
-//
-//            val certificates = HandshakeCertificates.Builder()
-//                    .addTrustedCertificate(isgCertificate as X509Certificate)
-//                    // Uncomment to allow connection to any site generally, but could possibly cause
-//                    // noticeable memory pressure in Android apps.
-////        .addPlatformTrustedCertificates()
-//                    .build()
-//
-//            builder.sslSocketFactory(certificates.sslSocketFactory(), certificates.trustManager());
+
+
         }
         else{
-
             exoPlayer = ExoPlayer.Builder(context)
                     .setTrackSelector(trackSelector)
                     .setLoadControl(loadControl)
                     .build()
+
         }
-//        val okHttpClient = builder.build()
-//
-////
-//        val httpDataSourceFactory: HttpDataSource.Factory = OkHttpDataSource.Factory(okHttpClient)
-//
-
-        // Create a DefaultHttpDataSourceFactory with your OkHttpClient
-//        val httpDataSourceFactory = DefaultHttpDataSourceFactory(
-//                "user-agent",
-//                null, // CacheControl
-//                DefaultHttpDataSourceFactory.DEFAULT_CONNECT_TIMEOUT_MILLIS,
-//                DefaultHttpDataSourceFactory.DEFAULT_READ_TIMEOUT_MILLIS,
-//                true // allowCrossProtocolRedirects
-//        )
-
-
 
 
 
