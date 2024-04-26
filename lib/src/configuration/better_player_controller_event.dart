@@ -13,5 +13,10 @@ enum BetterPlayerControllerEvent {
   setupDataSource,
 
   //Video has started.
-  play
+  play,
+    ////////////// by waqar //////////////
+  expandScreen,
+
+  ////////////// by waqar //////////////
+  stretchScreen
 }
