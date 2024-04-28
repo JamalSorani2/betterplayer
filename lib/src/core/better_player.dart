@@ -289,15 +289,14 @@ int pushedFullScreens = 0;
               }
             },
 
-            child:
-        Transform.scale(
-        scale: _scaleFactor,
-            Container(
-              alignment: Alignment.center,
-              color: Colors.black,
-              child: controllerProvider,
+            child:  Transform.scale(
+              scale: _scaleFactor,
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.black,
+                child: controllerProvider,
+              ),
             ),
-          ),
           ),
         ),
       );
