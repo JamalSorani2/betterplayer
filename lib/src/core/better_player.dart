@@ -176,8 +176,8 @@ class _BetterPlayerState extends State<BetterPlayer>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: InteractiveViewer(
-        panEnabled: false, // Set it to false to prevent panning.
-        boundaryMargin: EdgeInsets.all(80),
+        panEnabled: true, // Set it to false to prevent panning.
+        boundaryMargin: EdgeInsets.all(10),
         minScale: 1,
         maxScale: 4,
         child: Container(
