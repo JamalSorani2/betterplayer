@@ -13,26 +13,26 @@ class BetterPlayer extends StatefulWidget {
   const BetterPlayer({Key? key, required this.controller,this.onFullScreenClosed}) : super(key: key);
 
   factory BetterPlayer.network(
-    String url, {
-    BetterPlayerConfiguration? betterPlayerConfiguration,
-  }) =>
+      String url, {
+        BetterPlayerConfiguration? betterPlayerConfiguration,
+      }) =>
       BetterPlayer(
         controller: BetterPlayerController(
           betterPlayerConfiguration ?? const BetterPlayerConfiguration(),
           betterPlayerDataSource:
-              BetterPlayerDataSource(BetterPlayerDataSourceType.network, url),
+          BetterPlayerDataSource(BetterPlayerDataSourceType.network, url),
         ),
       );
 
   factory BetterPlayer.file(
-    String url, {
-    BetterPlayerConfiguration? betterPlayerConfiguration,
-  }) =>
+      String url, {
+        BetterPlayerConfiguration? betterPlayerConfiguration,
+      }) =>
       BetterPlayer(
         controller: BetterPlayerController(
           betterPlayerConfiguration ?? const BetterPlayerConfiguration(),
           betterPlayerDataSource:
-              BetterPlayerDataSource(BetterPlayerDataSourceType.file, url),
+          BetterPlayerDataSource(BetterPlayerDataSourceType.file, url),
         ),
       );
 
@@ -136,40 +136,22 @@ class _BetterPlayerState extends State<BetterPlayer>
       case BetterPlayerControllerEvent.hideFullscreen:
         onFullScreenChanged();
         break;
-      case BetterPlayerControllerEvent.expandScreen:
-        onFullScreenChanged(isVideoBoxFitChanged: true);
-        break;
-      case BetterPlayerControllerEvent.stretchScreen:
-        onFullScreenChanged(isVideoBoxFitChanged: true);
-        break;
       default:
         setState(() {});
         break;
     }
   }
-int pushedFullScreens = 0;
+
   // ignore: avoid_void_async
-  Future<void> onFullScreenChanged({bool isVideoBoxFitChanged = false}) async {
+  Future<void> onFullScreenChanged() async {
     final controller = widget.controller;
     if (controller.isFullScreen && !_isFullScreen) {
       _isFullScreen = true;
-         pushedFullScreens = 1;
       controller
           .postEvent(BetterPlayerEvent(BetterPlayerEventType.openFullscreen));
       await _pushFullScreenWidget(context);
-    } else if (isVideoBoxFitChanged && controller.isFullScreen) {
-      // Navigator.of(context, rootNavigator: true).pop();
-      pushedFullScreens++;
-      controller
-          .postEvent(BetterPlayerEvent(BetterPlayerEventType.openFullscreen));
-      await _pushFullScreenWidget(context);
-    } else if (_isFullScreen) { 
-      // Navigator.of(context, rootNavigator: true).pop();
-        for (int i = 1; i <= pushedFullScreens; i++) {
-        Navigator.of(context, rootNavigator: true).pop();
-      }
-            pushedFullScreens = 0;
-
+    } else if (_isFullScreen) {
+      Navigator.of(context, rootNavigator: true).pop();
       if(widget.onFullScreenClosed!=null) {
         await widget.onFullScreenClosed!();
       }
@@ -186,130 +168,25 @@ int pushedFullScreens = 0;
       child: _buildPlayer(),
     );
   }
-  double _scaleFactor = 1.0;
-  double _baseScaleFactor = 1.0;
-  
+
   Widget _buildFullScreenVideo(
       BuildContext context,
       Animation<double> animation,
       BetterPlayerControllerProvider controllerProvider) {
-      return StatefulBuilder(builder: (context, setState) {
-      return WillPopScope(
-        onWillPop: () async {
-          for (int i = 1; i <= pushedFullScreens; i++) {
-            Navigator.of(context, rootNavigator: true).pop();
-          }
-          return true;
-        },
-        //willPopScopeMethod,
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: GestureDetector(
-            // onDoubleTap: () {
-            //   if (controllerProvider.controller.getFit() == BoxFit.contain) {
-            //     debugPrint("double tap");
-            //     debugPrint('double tap before setstate' +
-            //         controllerProvider.controller.getFit().toString());
-            //     setState(() {
-            //       controllerProvider.controller.setOverriddenFit(BoxFit.fill);
-            //       controllerProvider.controller.postControllerEvent(
-            //           BetterPlayerControllerEvent.expandScreen);
-            //       controllerProvider.updateShouldNotify(controllerProvider);
-            //     });
-            //     debugPrint('double tap after setstate' +
-            //         controllerProvider.controller.getFit().toString());
-            //   } else {
-            //     debugPrint("long tap");
-            //     debugPrint('long tap before setstate' +
-            //         controllerProvider.controller.getFit().toString());
-            //     setState(() {
-            //       controllerProvider.controller.setOverriddenFit(BoxFit.contain);
-            //       controllerProvider.controller.postControllerEvent(
-            //           BetterPlayerControllerEvent.stretchScreen);
-            //       controllerProvider.updateShouldNotify(controllerProvider);
-            //     });
-            //     debugPrint('long tap before setstate' +
-            //         controllerProvider.controller.getFit().toString());
-            //   }
-            // },
-
-            onScaleStart: (details) {
-              _baseScaleFactor = _scaleFactor;
-              debugPrint('starting point: ' + _baseScaleFactor.toString());
-            },
-            onScaleUpdate: (details) {
-              setState(() {
-                _scaleFactor = _baseScaleFactor * details.scale;
-                debugPrint('updating point: ' + _scaleFactor.toString());
-                // _scaleFactor = 1.0;
-                // debugPrint('resetting scale point: ' + _scaleFactor.toString());
-              });
-            },
-            onScaleEnd: (details) {
-              if (_baseScaleFactor == _scaleFactor) {
-                debugPrint('EQUAL scale point: ' +
-                    _scaleFactor.toString() +
-                    ' , ' +
-                    _baseScaleFactor.toString());
-              } else if (_baseScaleFactor > _scaleFactor) {
-                debugPrint('STRENTCHED scale point: ' +
-                    _scaleFactor.toString() +
-                    ' , ' +
-                    _baseScaleFactor.toString());
-                if (controllerProvider.controller.getFit() == BoxFit.fill) {
-                  debugPrint('stretched before setstate' +
-                      controllerProvider.controller.getFit().toString());
-                  setState(() {
-                    controllerProvider.controller
-                        .setOverriddenFit(BoxFit.contain);
-                    controllerProvider.controller.postControllerEvent(
-                        BetterPlayerControllerEvent.stretchScreen);
-                    controllerProvider.updateShouldNotify(controllerProvider);
-                  });
-                  debugPrint('stretched after setstate' +
-                      controllerProvider.controller.getFit().toString());
-                }
-              } else if (_baseScaleFactor < _scaleFactor) {
-                debugPrint('EXPAND scale point: ' +
-                    _scaleFactor.toString() +
-                    ' , ' +
-                    _baseScaleFactor.toString());
-                if (controllerProvider.controller.getFit() == BoxFit.contain) {
-                  debugPrint('EXPAND before setstate' +
-                      controllerProvider.controller.getFit().toString());
-                  setState(() {
-                    controllerProvider.controller.setOverriddenFit(BoxFit.fill);
-                    controllerProvider.controller.postControllerEvent(
-                        BetterPlayerControllerEvent.expandScreen);
-                    controllerProvider.updateShouldNotify(controllerProvider);
-                  });
-                  debugPrint('EXPAND after setstate' +
-                      controllerProvider.controller.getFit().toString());
-                }
-              }
-            },
-
-            child:  Transform.scale(
-              scale: _scaleFactor,
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.black,
-                child: controllerProvider,
-              ),
-            ),
-          ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: InteractiveViewer(
+        panEnabled: false, // Set it to false to prevent panning.
+        boundaryMargin: EdgeInsets.all(80),
+        minScale: 1,
+        maxScale: 4,
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.black,
+          child: controllerProvider,
         ),
-      );
-    });
-
-    // return Scaffold(
-    //   resizeToAvoidBottomInset: false,
-    //   body: Container(
-    //     alignment: Alignment.center,
-    //     color: Colors.black,
-    //     child: controllerProvider,
-    //   ),
-    // );
+      ),
+    );
   }
 
   AnimatedWidget _defaultRoutePageBuilder(
@@ -326,10 +203,10 @@ int pushedFullScreens = 0;
   }
 
   Widget _fullScreenRoutePageBuilder(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) {
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      ) {
     final controllerProvider = BetterPlayerControllerProvider(
         controller: widget.controller, child: _buildPlayer());
 
