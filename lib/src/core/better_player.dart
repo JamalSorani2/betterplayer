@@ -289,11 +289,15 @@ int pushedFullScreens = 0;
               }
             },
 
-            child: Container(
+            child:
+        Transform.scale(
+        scale: _scaleFactor,
+            Container(
               alignment: Alignment.center,
               color: Colors.black,
               child: controllerProvider,
             ),
+          ),
           ),
         ),
       );
