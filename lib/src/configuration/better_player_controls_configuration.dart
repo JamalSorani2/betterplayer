@@ -27,7 +27,7 @@ class BetterPlayerControlsConfiguration {
   ///Icon of unmute
   final IconData unMuteIcon;
 
-  ///Icon of fullscreen mode enable
+  ///Icon of fullscreen mode enableW
   final IconData fullscreenEnableIcon;
 
   ///Icon of fullscreen mode disable
