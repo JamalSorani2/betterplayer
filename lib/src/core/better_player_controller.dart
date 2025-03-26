@@ -1271,8 +1271,8 @@ class BetterPlayerController {
       BetterPlayerControlsConfiguration betterPlayerControlsConfiguration) {
     this._betterPlayerControlsConfiguration = betterPlayerControlsConfiguration;
   }
-  
- void postControllerEvent(BetterPlayerControllerEvent event) {
+
+  void postControllerEvent(BetterPlayerControllerEvent event) {
     _postControllerEvent(event);
   }
 

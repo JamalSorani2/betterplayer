@@ -933,7 +933,7 @@ class _VideoProgressIndicatorState extends State<VideoProgressIndicator> {
 /// If [text] is null, this widget will not display anything.
 ///
 /// If [textStyle] is supplied, it will be used to style the text in the closed
-/// caption.
+/// bodySmall.
 ///
 /// Note: in order to have closed captions, you need to specify a
 /// [VideoPlayerController.closedCaptionFile].
@@ -943,21 +943,21 @@ class _VideoProgressIndicatorState extends State<VideoProgressIndicator> {
 /// ```dart
 /// Stack(children: <Widget>[
 ///   VideoPlayer(_controller),
-///   ClosedCaption(text: _controller.value.caption.text),
+///   ClosedCaption(text: _controller.value.bodySmall.text),
 /// ]),
 /// ```
 class ClosedCaption extends StatelessWidget {
-  /// Creates a a new closed caption, designed to be used with
-  /// [VideoPlayerValue.caption].
+  /// Creates a a new closed bodySmall, designed to be used with
+  /// [VideoPlayerValue.bodySmall].
   ///
   /// If [text] is null, nothing will be displayed.
   const ClosedCaption({Key? key, this.text, this.textStyle}) : super(key: key);
 
-  /// The text that will be shown in the closed caption, or null if no caption
+  /// The text that will be shown in the closed bodySmall, or null if no bodySmall
   /// should be shown.
   final String? text;
 
-  /// Specifies how the text in the closed caption should look.
+  /// Specifies how the text in the closed bodySmall should look.
   ///
   /// If null, defaults to [DefaultTextStyle.of(context).style] with size 36
   /// font colored white.

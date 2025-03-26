@@ -41,7 +41,7 @@ class HlsMasterPlaylist extends HlsPlaylist {
   /// The subtitle renditions declared by the playlist.
   final List<Rendition> subtitles;
 
-  /// The closed caption renditions declared by the playlist.
+  /// The closed bodySmall renditions declared by the playlist.
   final List<Rendition> closedCaptions;
 
   ///The format of the audio muxed in the variants. May be null if the playlist does not declare any mixed audio.

@@ -25,7 +25,7 @@ class Variant {
   /// The subtitle rendition group referenced by this variant, or {@code null}.
   final String? subtitleGroupId;
 
-  /// The caption rendition group referenced by this variant, or {@code null}.
+  /// The bodySmall rendition group referenced by this variant, or {@code null}.
   final String? captionGroupId;
 
   /// Returns a copy of this instance with the given {@link Format}.
