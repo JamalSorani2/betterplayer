@@ -24,6 +24,9 @@ class BetterPlayer extends StatefulWidget {
           betterPlayerDataSource: BetterPlayerDataSource(
             BetterPlayerDataSourceType.network,
             url,
+            cacheConfiguration: BetterPlayerCacheConfiguration(
+              useCache: true,
+            ),
           ),
         ),
       );
