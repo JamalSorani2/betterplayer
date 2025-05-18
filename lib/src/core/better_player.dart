@@ -21,8 +21,13 @@ class BetterPlayer extends StatefulWidget {
       BetterPlayer(
         controller: BetterPlayerController(
           betterPlayerConfiguration ?? const BetterPlayerConfiguration(),
-          betterPlayerDataSource:
-              BetterPlayerDataSource(BetterPlayerDataSourceType.network, url),
+          betterPlayerDataSource: BetterPlayerDataSource(
+            BetterPlayerDataSourceType.network,
+            url,
+            cacheConfiguration: BetterPlayerCacheConfiguration(
+              useCache: true,
+            ),
+          ),
         ),
       );
 
