@@ -303,7 +303,6 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
         notificationChannelName: notificationChannelName,
         overriddenDuration: overriddenDuration,
         activityName: activityName,
-        useCache: true,
       ),
     );
   }
