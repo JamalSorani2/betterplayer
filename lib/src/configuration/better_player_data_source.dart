@@ -137,7 +137,10 @@ class BetterPlayerDataSource {
       useAsmsTracks: useAsmsTracks,
       useAsmsAudioTracks: useAsmsAudioTracks,
       resolutions: qualities,
-      cacheConfiguration: cacheConfiguration,
+      cacheConfiguration: cacheConfiguration ??
+          BetterPlayerCacheConfiguration(
+            useCache: true,
+          ),
       notificationConfiguration: notificationConfiguration,
       overriddenDuration: overriddenDuration,
       videoFormat: videoFormat,
