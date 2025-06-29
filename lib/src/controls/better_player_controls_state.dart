@@ -344,13 +344,17 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
     );
   }
 
-  Widget _buildResolutionSelectionRow(String name, String url) {
+  Widget _buildResolutionSelectionRow(
+    String name,
+    String url,
+  ) {
     final bool isSelected =
         url == betterPlayerController!.betterPlayerDataSource!.url;
     return BetterPlayerMaterialClickableWidget(
       onTap: () {
         Navigator.of(context).pop();
         betterPlayerController!.setResolution(url);
+        betterPlayerController!.betterPlayerDataSource?.onSetResolution?.call();
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),

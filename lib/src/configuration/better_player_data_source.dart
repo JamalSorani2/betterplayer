@@ -45,6 +45,9 @@ class BetterPlayerDataSource {
   ///{"360p": "url", "540p": "url2" }
   final Map<String, String>? resolutions;
 
+  ///Optional, function to set resolution. Used to setup different qualities for video.
+  final void Function()? onSetResolution;
+
   ///Optional cache configuration, used only for network data sources
   final BetterPlayerCacheConfiguration? cacheConfiguration;
 
@@ -88,6 +91,7 @@ class BetterPlayerDataSource {
     this.useAsmsAudioTracks = true,
     this.asmsTrackNames,
     this.resolutions,
+    this.onSetResolution,
     this.cacheConfiguration,
     this.notificationConfiguration =
         const BetterPlayerNotificationConfiguration(
@@ -126,6 +130,7 @@ class BetterPlayerDataSource {
     Widget? placeholder,
     BetterPlayerBufferingConfiguration bufferingConfiguration =
         const BetterPlayerBufferingConfiguration(),
+    void Function()? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
@@ -137,6 +142,7 @@ class BetterPlayerDataSource {
       useAsmsTracks: useAsmsTracks,
       useAsmsAudioTracks: useAsmsAudioTracks,
       resolutions: qualities,
+      onSetResolution: onSetResolution,
       cacheConfiguration: cacheConfiguration,
       notificationConfiguration: notificationConfiguration,
       overriddenDuration: overriddenDuration,
@@ -159,6 +165,7 @@ class BetterPlayerDataSource {
     BetterPlayerNotificationConfiguration? notificationConfiguration,
     Duration? overriddenDuration,
     Widget? placeholder,
+    void Function()? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.file,
@@ -167,6 +174,7 @@ class BetterPlayerDataSource {
       useAsmsSubtitles: useAsmsSubtitles,
       useAsmsTracks: useAsmsTracks,
       resolutions: qualities,
+      onSetResolution: onSetResolution,
       cacheConfiguration: cacheConfiguration,
       notificationConfiguration: notificationConfiguration =
           const BetterPlayerNotificationConfiguration(showNotification: false),
@@ -188,6 +196,7 @@ class BetterPlayerDataSource {
     BetterPlayerNotificationConfiguration? notificationConfiguration,
     Duration? overriddenDuration,
     Widget? placeholder,
+    void Function()? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.memory,
@@ -198,6 +207,7 @@ class BetterPlayerDataSource {
       useAsmsSubtitles: useAsmsSubtitles,
       useAsmsTracks: useAsmsTracks,
       resolutions: qualities,
+      onSetResolution: onSetResolution,
       cacheConfiguration: cacheConfiguration,
       notificationConfiguration: notificationConfiguration =
           const BetterPlayerNotificationConfiguration(showNotification: false),
@@ -217,6 +227,7 @@ class BetterPlayerDataSource {
     bool? useAsmsTracks,
     bool? useAsmsAudioTracks,
     Map<String, String>? resolutions,
+    void Function()? onSetResolution,
     BetterPlayerCacheConfiguration? cacheConfiguration,
     BetterPlayerNotificationConfiguration? notificationConfiguration =
         const BetterPlayerNotificationConfiguration(showNotification: false),
@@ -239,6 +250,7 @@ class BetterPlayerDataSource {
       useAsmsTracks: useAsmsTracks ?? this.useAsmsTracks,
       useAsmsAudioTracks: useAsmsAudioTracks ?? this.useAsmsAudioTracks,
       resolutions: resolutions ?? this.resolutions,
+      onSetResolution: onSetResolution ?? this.onSetResolution,
       cacheConfiguration: cacheConfiguration ?? this.cacheConfiguration,
       notificationConfiguration:
           notificationConfiguration ?? this.notificationConfiguration,
