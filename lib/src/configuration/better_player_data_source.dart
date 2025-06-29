@@ -46,7 +46,7 @@ class BetterPlayerDataSource {
   final Map<String, String>? resolutions;
 
   ///Optional, function to set resolution. Used to setup different qualities for video.
-  final void Function()? onSetResolution;
+  final void Function(String url)? onSetResolution;
 
   ///Optional cache configuration, used only for network data sources
   final BetterPlayerCacheConfiguration? cacheConfiguration;
@@ -130,7 +130,7 @@ class BetterPlayerDataSource {
     Widget? placeholder,
     BetterPlayerBufferingConfiguration bufferingConfiguration =
         const BetterPlayerBufferingConfiguration(),
-    void Function()? onSetResolution,
+    void Function(String url)? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
@@ -165,7 +165,7 @@ class BetterPlayerDataSource {
     BetterPlayerNotificationConfiguration? notificationConfiguration,
     Duration? overriddenDuration,
     Widget? placeholder,
-    void Function()? onSetResolution,
+    void Function(String url)? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.file,
@@ -196,7 +196,7 @@ class BetterPlayerDataSource {
     BetterPlayerNotificationConfiguration? notificationConfiguration,
     Duration? overriddenDuration,
     Widget? placeholder,
-    void Function()? onSetResolution,
+    void Function(String url)? onSetResolution,
   }) {
     return BetterPlayerDataSource(
       BetterPlayerDataSourceType.memory,
@@ -227,7 +227,7 @@ class BetterPlayerDataSource {
     bool? useAsmsTracks,
     bool? useAsmsAudioTracks,
     Map<String, String>? resolutions,
-    void Function()? onSetResolution,
+    void Function(String url)? onSetResolution,
     BetterPlayerCacheConfiguration? cacheConfiguration,
     BetterPlayerNotificationConfiguration? notificationConfiguration =
         const BetterPlayerNotificationConfiguration(showNotification: false),

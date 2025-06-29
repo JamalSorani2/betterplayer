@@ -354,7 +354,8 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
       onTap: () {
         Navigator.of(context).pop();
         betterPlayerController!.setResolution(url);
-        betterPlayerController!.betterPlayerDataSource?.onSetResolution?.call();
+        betterPlayerController!.betterPlayerDataSource?.onSetResolution
+            ?.call(url);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
